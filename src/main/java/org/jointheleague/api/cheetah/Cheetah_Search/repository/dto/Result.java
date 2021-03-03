@@ -4,7 +4,6 @@ package org.jointheleague.api.cheetah.Cheetah_Search.repository.dto;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Result {
 
