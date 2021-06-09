@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(HomeController.class)
 class HomeControllerIntTest {
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -22,4 +23,5 @@ class HomeControllerIntTest {
                 .andExpect(status().isMovedPermanently())
                 .andExpect(redirectedUrl("swagger-ui.html"));
     }
+
 }
