@@ -31,7 +31,7 @@ public class LocController {
             responseContainer="List")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Result(s) found"),
-            @ApiResponse(code = 400, message = "Result(s) not found")
+            @ApiResponse(code = 404, message = "Result(s) not found")
     })
     public List<Result> getResults(@RequestParam(value="q") String query){
         List<Result> results = locService.getResults(query);
