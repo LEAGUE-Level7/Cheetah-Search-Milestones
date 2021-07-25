@@ -50,7 +50,7 @@ class LocControllerTest {
     }
 
     @Test
-    void givenBadQuery_whenGetResults_thenReturnThrowException() {
+    void givenBadQuery_whenGetResults_thenThrowsException() {
         //given
         String query = "Java";
 
