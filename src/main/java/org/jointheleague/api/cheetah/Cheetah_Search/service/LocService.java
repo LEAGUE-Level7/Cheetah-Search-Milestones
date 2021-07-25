@@ -1,8 +1,10 @@
 package org.jointheleague.api.cheetah.Cheetah_Search.service;
 
 import org.jointheleague.api.cheetah.Cheetah_Search.repository.LocRepository;
-import org.jointheleague.api.cheetah.Cheetah_Search.repository.dto.LocResponse;
+import org.jointheleague.api.cheetah.Cheetah_Search.repository.dto.Result;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LocService {
@@ -13,7 +15,7 @@ public class LocService {
         this.locRepository = locRepository;
     }
 
-    public LocResponse getResults(String query){
+    public List<Result> getResults(String query){
         return locRepository.getResults(query);
     }
 
