@@ -6,11 +6,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 class LocControllerTest {
@@ -45,6 +47,17 @@ class LocControllerTest {
 
         //then
         assertEquals(expectedResults, actualResults);
+    }
+
+    @Test
+    void givenBadQuery_whenGetResults_thenReturnThrowException() {
+        //given
+        String query = "Java";
+
+        //when
+        //then
+        Throwable exceptionThrown = assertThrows(ResponseStatusException.class, () -> locController.getResults(query));
+        assertEquals(exceptionThrown.getMessage(), "404 NOT_FOUND \"Result(s) not found.\"");
     }
 
 }
