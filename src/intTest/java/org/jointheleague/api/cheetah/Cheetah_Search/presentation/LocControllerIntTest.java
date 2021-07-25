@@ -59,7 +59,7 @@ class LocControllerIntTest {
     }
 
     @Test
-    public void givenBadQuery_whenSearchForResults_thenIsOkAndReturnsResults() throws Exception {
+    public void givenBadQuery_whenSearchForResults_thenIsNotFound() throws Exception {
         //given
         String query = "Java";
 
