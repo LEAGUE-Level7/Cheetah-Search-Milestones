@@ -1,6 +1,5 @@
 package org.jointheleague.api.cheetah.Cheetah_Search.repository;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import org.jointheleague.api.cheetah.Cheetah_Search.repository.dto.LocResponse;
 import org.jointheleague.api.cheetah.Cheetah_Search.repository.dto.Result;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -47,15 +46,16 @@ class LocRepositoryTest {
     }
 
     @Test
-    void whenGetResults_thenReturnLocResponse() {
+    void whenGetResults_thenReturnListOfResults() {
         //given
         String query = "Java";
-        LocResponse expectedLocResponse = new LocResponse();
+        LocResponse locResponse = new LocResponse();
         Result result = new Result();
         result.setTitle("Java: A Drink, an Island, and a Programming Language");
         result.setAuthors(Collections.singletonList("AUTHOR"));
         result.setLink("LINK");
-        expectedLocResponse.setResults(Collections.singletonList(result));
+        List<Result> expectedResults = Collections.singletonList(result);
+        locResponse.setResults(expectedResults);
 
         when(webClientMock.get())
                 .thenReturn(requestHeadersUriSpecMock);
@@ -66,13 +66,13 @@ class LocRepositoryTest {
         when(responseSpecMock.bodyToMono(LocResponse.class))
                 .thenReturn(LocResponseMonoMock);
         when(LocResponseMonoMock.block())
-                .thenReturn(expectedLocResponse);
+                .thenReturn(locResponse);
 
         //when
-        LocResponse actualLocResponseResponse = locRepository.getResults(query);
+        List<Result> actualLocResults = locRepository.getResults(query);
 
         //then
-        assertEquals(expectedLocResponse, actualLocResponseResponse);
+        assertEquals(expectedResults, actualLocResults);
     }
 
 }
