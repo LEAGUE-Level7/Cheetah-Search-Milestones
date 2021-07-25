@@ -1,9 +1,7 @@
 package org.jointheleague.api.cheetah.Cheetah_Search.presentation;
 
-import org.jointheleague.api.cheetah.Cheetah_Search.repository.dto.LocResponse;
 import org.jointheleague.api.cheetah.Cheetah_Search.repository.dto.Result;
 import org.jointheleague.api.cheetah.Cheetah_Search.service.LocService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -33,32 +31,42 @@ class LocControllerIntTest {
     private LocService locService;
 
     @Test
-    public void whenHome_ThenReturnMovedPermanentlyAndRedirect() throws Exception {
+    public void givenGoodQuery_whenSearchForResults_thenIsOkAndReturnsResults() throws Exception {
         //given
         String query = "Java";
-        LocResponse expectedLocResponse = new LocResponse();
-        Result result = new Result();
         String title = "Java: A Drink, an Island, and a Programming Language";
-        result.setTitle(title);
         String author = "AUTHOR";
-        result.setAuthors(Collections.singletonList(author));
         String link = "LINK";
+        Result result = new Result();
+        result.setTitle(title);
+        result.setAuthors(Collections.singletonList(author));
         result.setLink(link);
-        expectedLocResponse.setResults(Collections.singletonList(result));
+        List<Result> expectedResults = Collections.singletonList(result);
 
-        when(locService.getResults(query)).thenReturn(expectedLocResponse);
+        when(locService.getResults(query)).thenReturn(expectedResults);
 
         //when
         //then
         MvcResult mvcResult = mockMvc.perform(get("/searchLocResults?q=" + query))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.results[0].title", is(title)))
-                .andExpect(jsonPath("$.results[0].authors[0]", is(author)))
-                .andExpect(jsonPath("$.results[0].link", is(link)))
+                .andExpect(jsonPath("$[0].title", is(title)))
+                .andExpect(jsonPath("$[0].authors[0]", is(author)))
+                .andExpect(jsonPath("$[0].link", is(link)))
                 .andReturn();
 
         assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
     }
 
+    @Test
+    public void givenBadQuery_whenSearchForResults_thenIsOkAndReturnsResults() throws Exception {
+        //given
+        String query = "Java";
+
+        //when
+        //then
+        mockMvc.perform(get("/searchLocResults?q=" + query))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
 }
