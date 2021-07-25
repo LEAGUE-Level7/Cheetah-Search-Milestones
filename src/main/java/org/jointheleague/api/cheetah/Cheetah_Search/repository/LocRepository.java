@@ -1,7 +1,11 @@
 package org.jointheleague.api.cheetah.Cheetah_Search.repository;
 
+import org.jointheleague.api.cheetah.Cheetah_Search.repository.dto.LocResponse;
+import org.jointheleague.api.cheetah.Cheetah_Search.repository.dto.Result;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
 
 @Repository
 public class LocRepository {
@@ -17,7 +21,7 @@ public class LocRepository {
                 .build();
     }
 
-    public String getResults(String query) {
+    public List<Result> getResults(String query) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("fo", "json")
@@ -25,8 +29,9 @@ public class LocRepository {
                         .queryParam("q", query)
                         .build()
                 ).retrieve()
-                .bodyToMono(String.class)
-                .block();
+                .bodyToMono(LocResponse.class)
+                .block()
+                .getResults();
     }
 
 }
