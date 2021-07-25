@@ -1,6 +1,5 @@
 package org.jointheleague.api.cheetah.Cheetah_Search.repository;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import org.jointheleague.api.cheetah.Cheetah_Search.repository.dto.LocResponse;
 import org.jointheleague.api.cheetah.Cheetah_Search.repository.dto.Result;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 

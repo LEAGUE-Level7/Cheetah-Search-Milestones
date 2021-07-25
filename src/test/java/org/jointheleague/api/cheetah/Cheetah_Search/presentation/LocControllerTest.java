@@ -1,6 +1,5 @@
 package org.jointheleague.api.cheetah.Cheetah_Search.presentation;
 
-import org.jointheleague.api.cheetah.Cheetah_Search.repository.dto.LocResponse;
 import org.jointheleague.api.cheetah.Cheetah_Search.repository.dto.Result;
 import org.jointheleague.api.cheetah.Cheetah_Search.service.LocService;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 class LocControllerTest {
@@ -47,4 +46,5 @@ class LocControllerTest {
         //then
         assertEquals(expectedResults, actualResults);
     }
+
 }
